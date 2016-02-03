@@ -1,0 +1,58 @@
+{
+  "name": "extrade",
+  "version": "0.1.3",
+  "description": "Extrade Trading Platform API for Node.js ",
+  "main": "extrade.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/infernoman/node-extrade.git"
+  },
+  "keywords": [
+    "Extrade",
+    "Trading",
+    "API",
+    "Bitcoin",
+    "Litecoin",
+    "Namecoin",
+    "Transfercoin",
+    "TX",
+    "BTC",
+    "LTC",
+    "NMC"
+  ],
+  "author": {
+    "name": "Alastair Clark"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/infernoman/node-extrade/issues"
+  },
+  "dependencies": {
+    "request": "~2.27.0"
+  },
+  "readme": "node-extrade\n============\n\nNode module for Extrade trading platform.\n\nBased on [Extrade reference implementation](https://www.extrade.com/pages/api)\n\n## Install ##\n\n```bash\n$ npm install extrade\n```\n\n## Sample usage ##\n\n### Create a Extrade object ###\n\n```javascript\nvar Extrade = require('extrade');\n\nvar extrade = new Extrade('YOUR-KEY', 'YOUR-SECRET');\n```\n\n### Public Methods ###\n\nPublic methods do not require the use of an api key\n\n* marketdata\n* marketdatav2\n* singlemarketdata\n* orderdata\n* singleorderdata\n\nExamples:\n\n```javascript\nextrade.api('marketdata', null, function (err, data) {\n    if (err) {\n        throw err;\n    } else {\n        // do something with data\n    }\n});\n\nextrade.api('singlemarketdata', { marketid: 26 }, function (err, data) {\n    // ...\n});\n```\n\n### Authenticated Methods ###\n\nAuthenticated methods require the use of an api key\n\n* getinfo\n* getmarkets\n* mytransactions\n* markettrades\n* marketorders\n* mytrades'\n* allmytrades\n* myorders\n* depth\n* allmyorders\n* createorder\n* cancelorder'\n* cancelmarketorders\n* cancelallorders\n* calculatefees\n* generatenewaddress\n\nExamples:\n\n```javascript\nextrade.api('getinfo', null, function (err, data) {\n    if (err) {\n        throw err;\n    } else {\n        // do something with data\n    }\n});\n\nextrade.api('getmarkets', null, function (err, data) {\n    // ...\n});\n\nextrade.api('markettrades', { marketid: 26 }, function (err, data) {\n    // ...\n});\n\nextrade.api('createorder', { marketid: 26, ordertype: 'Sell', quantity: 1000, price: 1000 }, function (err, data) {\n    // ...\n});\n\nextrade.api('cancelorder', { orderid: 123456 }, function (err, data) {\n    // ...\n});\n\nextrade.api('calculatefees', { ordertype: 'Buy', quantity: 1000, price: '0.005' }, function (err, data) {\n    // ...\n});\n```\n\n## API Documentation ##\n\n[Extrade trading API](https://www.extrade.com/pages/api)\n\n## License ##\n\nMIT",
+  "readmeFilename": "README.md",
+  "_id": "extrade@0.1.3",
+  "dist": {
+    "shasum": "ff3230c8e65803b93a9e35cc9dc05eff51d24428",
+    "tarball": "http://registry.npmjs.org/extrade/-/extrade-0.1.3.tgz"
+  },
+  "_from": "extrade@",
+  "_npmVersion": "1.3.8",
+  "_npmUser": {
+    "name": "aClark",
+    "email": "admin@infernopool.com"
+  },
+  "maintainers": [
+    {
+      "name": "aClark",
+      "email": "admin@infernopool.com"
+    }
+  ],
+  "directories": {},
+  "_shasum": "ff3230c8e65803b93a9e35cc9dc05eff51d24428",
+  "_resolved": "https://registry.npmjs.org/extrade/-/extrade-0.1.3.tgz"
+}
