@@ -1,5 +1,5 @@
 var Extrade = require('extrade');
-var Extrade = new Extrade('APIKEY', 'APISECRET');
+var Extrade = new Extrade({apiKey:'APIKEY', apiSecret:'APISECRET'}, '1ex.trade');
 //var Bittrex = require('node.bittrex.api');
 //var Bittrex2 = require('node.bittrex.api');
 var async = require('async');
@@ -31,8 +31,11 @@ function ExtradeBuy2() {
         type: 'limit',
         limit_price: '0.000028',
         amount: 25
-    }, function (err, extradeResponse) {
-        //console.log(err);
+    }, 'POST', function (err, extradeResponse) {
+    	if (err)
+            console.log(err);
+        else
+            console.log(extradeResponse);
     })
 }
 
@@ -78,9 +81,9 @@ function ExtradeBuy(bittrex, extrade, callback) {
         type: 'limit',
         limit_price: extrade['order-book'].ask[0].price,
         amount: extrade['order-book'].ask[0]['order_amount']
-    }, function (err, extradeResponse) {
+    }, 'POST', function (err, extradeResponse) {
     	console.log(extradeResponse);
-    	if (extradeResponse.errors[0] == null) {
+    	if (err == null) {
     	    callback(null, "Purchased "
     		    +parseFloat(extrade['order-book'].ask[0]['order_amount']).toFixed(8)
     		    +" Transfercoin for "
@@ -99,8 +102,8 @@ function ExtradeSell(bittrex, extrade, callback) {
         type: 'limit',
         limit_price: extrade['order-book'].ask[0].price,
         amount: bittrex.result.sell[0].Quantity
-    }, function (err, extradeResponse) {
-        if (extradeResponse.errors[0] == null) {
+    }, 'POST', function (err, extradeResponse) {
+        if (err == null) {
     	    callback(null, "Sold "
     		    +bittrex.result.sell[0].Quantity
     		    +" Transfercoin for "
@@ -113,7 +116,7 @@ function ExtradeSell(bittrex, extrade, callback) {
 }
 function Arb()
 {
-	Extrade.api('order-book', { currency: 'BTC', market: 'TX' }, function (err, extrade) {
+	Extrade.api('order-book', { currency: 'BTC', market: 'TX' }, 'GET',  function (err, extrade) {
 	    Bittrex.getorderbook({ market: 'BTC-TX', type: 'both', depth: '10' }, function(bittrex) {
 	        if (extrade['order-book'] && bittrex.result){
 		        if (extrade['order-book'].ask[0].price < bittrex.result.buy[0].Rate){
